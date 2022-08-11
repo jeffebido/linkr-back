@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import authRouter from "./routes/authRouter";
 
 async function main() {
   dotenv.config();
@@ -8,6 +9,8 @@ async function main() {
   const server = express();
   server.use(cors());
   server.use(json());
+
+  server.use(authRouter);
 
   const PORT = process.env.PORT || 3333;
   server.listen(PORT, () => {
