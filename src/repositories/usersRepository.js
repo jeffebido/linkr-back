@@ -1,4 +1,4 @@
-import db from "../db/database";
+import db from "../db/database.js";
 import bcrypty from "bcrypt";
 
 async function createUser(name, email, password) {

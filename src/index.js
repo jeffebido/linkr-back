@@ -2,7 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import hashtagtrendRouter from "./routes/hashtagtrendRouter.js"
-import authRouter from "./routes/authRouter";
+import authRouter from "./routes/authRouter.js";
 
 import postsRouter from './routes/postsRouter.js';
 
