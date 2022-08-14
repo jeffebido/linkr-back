@@ -1,4 +1,4 @@
-import { publishQuerys } from "../repositories/publishRepository";
+import { publishQuerys } from "../repositories/publishRepository.js";
 
 const haveHashtag = (req, res, next) => {
     const { description } = req.body;

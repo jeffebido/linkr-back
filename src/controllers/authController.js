@@ -1,7 +1,7 @@
-import { usersRepository } from "../repositories/usersRepository";
+import { usersRepository } from "../repositories/usersRepository.js";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
-import sessionsRepository from "../repositories/sessionsRepository";
+import sessionsRepository from "../repositories/sessionsRepository.js";
 
 export async function signIn(req, res) {
   const { email, password } = req.body;

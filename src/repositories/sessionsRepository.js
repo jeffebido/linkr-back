@@ -1,4 +1,4 @@
-import db from "../db/database";
+import db from "../db/database.js";
 
 async function createSession(token, UserId) {
   await db.query(`INSERT INTO sessions (token, user_id) VALUES ($1, $2)`, [
