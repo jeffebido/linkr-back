@@ -7,7 +7,7 @@ export async function signIn(req, res) {
   const { email, password } = req.body;
   const { rows: users } = await usersRepository.getUserByEmail(email);
   const [user] = users;
-
+  
   if (!user) {
     return res.sendStatus(401);
   }
@@ -16,23 +16,29 @@ export async function signIn(req, res) {
     const token = uuid();
 
     await sessionsRepository.createSession(token, user.id);
-    return res.send(token);
-  }
 
+    delete(user.id);
+    delete(user.password);
+    delete(user.created_at);
+    return res.send({...user, "token": token});
+  }
+  
   res.sendStatus(401);
 }
 
 export async function signUp(req, res) {
   const user = req.body;
+  
   try {
+    
     const existingUsers = usersRepository.getUserByEmail(user.email);
 
     if ((await existingUsers).rowCount > 0) {
       return res.sendStatus(409);
     }
 
-    const { name, email, password } = user;
-    await usersRepository.createUser(name, email, password);
+    const { username, email, password, pictureUrl} = user;
+    await usersRepository.createUser(username, email, password, pictureUrl);
 
     res.send(201);
   } catch (error) {
