@@ -5,7 +5,7 @@ import { tokenMiddleware } from '../middlewares/tokenMiddleware.js';
 
 const router = Router();
 
-router.use(tokenMiddleware);//Exige autenticação
+//router.use(tokenMiddleware);//Exige autenticação
 
 router.get("/timeline", getTimelinePosts);
 

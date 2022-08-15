@@ -19,7 +19,7 @@ async function main() {
 
   server.use(authRouter);
 
-  const PORT = process.env.PORT || 3333;
+  const PORT = process.env.PORT || 4000;
   server.listen(PORT, '127.0.0.1', () => {
     console.log(`O servidor suviu na porta ${PORT}`);
   });
