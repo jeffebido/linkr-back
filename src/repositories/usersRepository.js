@@ -1,13 +1,13 @@
 import db from "../db/database.js";
 import bcrypty from "bcrypt";
 
-async function createUser(name, email, password) {
+async function createUser(username, email, password, pictureUrl) {
   const SALT = 10;
   const passwordEncrypted = bcrypty.hashSync(password, SALT);
 
   await db.query(
-    `INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`,
-    [name, email, passwordEncrypted]
+    `INSERT INTO users (username, email, password, picture_url) VALUES ($1, $2, $3, $4)`,
+    [username, email, passwordEncrypted,pictureUrl ]
   );
 }
 

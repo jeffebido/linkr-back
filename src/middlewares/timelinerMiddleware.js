@@ -1,28 +1,35 @@
 import { publishQuerys } from "../repositories/publishRepository.js";
+import postSchema from "../schemas/postsSchema.js";
 
-const haveHashtag = (req, res, next) => {
+const haveHashtag = async (req, res, next) => {
     const { description } = req.body;
+
+    const validate = postSchema.validate(req.body);
+
+    if (validate.error) {
+        return res.status(422).send(validate.error);
+    }   
+
     try{
-        const descriptionArray = description.splice(" ");
-        const allHashtags = descriptionArray.map((string) => {
-            if(string.includes("#")){
-                return string.split(1, string.length - 1).toLowerCase();
-            }
-        });
-        if(allHashtags > 0){
+
+
+        const allHashtags = description.match(/#[a-z0-9_]+/gi);
+
+        if(allHashtags && allHashtags.length > 0){
+            
             for(let i = 0; i < allHashtags.length; i++){
                 const hashtag = allHashtags[i];
-                const { rows:hashtagDb } = await publishQuerys.haveHashtag([hashtag]);
-                if(hashtagDb.length === 0){
+                const hashtagDb = await publishQuerys.haveHashtag([hashtag]);
+                if(hashtagDb.rows.length === 0){
                     const queryString = [
                         hashtag, //name
                         1,  //mentions
-                        0,  //view_count
-                        1   //last_use
+                        0  //view_count
                     ]
-                    await publishQuerys.newHashtag([queryString]);
+                    await publishQuerys.newHashtag(queryString);
                 }else{
-                    await publishQuerys.updateMentions([hashtagDb.id, 1]);
+                    
+                    await publishQuerys.updateMentions([hashtagDb.rows[0].id]);
                 };
             }
         }
@@ -30,8 +37,9 @@ const haveHashtag = (req, res, next) => {
         res.locals.allHashtags = allHashtags;
         next();
     }catch(error){
+        console.log(error)
         return res.status(500).send(error);
     };
 }
 
-export { haveHashtag };
+export  { haveHashtag };

@@ -1,20 +1,21 @@
 import { publishQuerys } from "../repositories/publishRepository.js";
 
-const publishPost = async () => {
-    const { userId } = res.locals;
-    const { url, description } = req.body;
-    const { allHashtagsIds } = res.locals;
+const publishPost = async (req, res) => {
+    const { user } = res.locals;
+    const { link, description } = req.body;
+    const { allHashtags } = res.locals;
     try{
-      const postId = await publishQuerys.postPublish([userId, description, url]);
-      if(allHashtags > 0){
-        for(let i = 0; i < allHashtagsIds.length; i++){
-          const hashtagId = allHashtagsIds[i];
-          await publishQuerys.postHashtags([hashtagId, postId]);
+      const postId = await publishQuerys.postPublish([user.id, description, link]);
+      if(allHashtags && allHashtags.length > 0){
+        for(let i = 0; i < allHashtags.length; i++){
+          const hashtagId = allHashtags[i];
+         
+          await publishQuerys.hashtagsPosts([hashtagId, postId.rows[0].id ]);
         }
       }
       res.sendStatus(200);
     }catch(error){
-     // console.log(`[ERRO] In publishPost controller`);
+      console.log(error);
       return res.status(500).send(error);
     }
 };
