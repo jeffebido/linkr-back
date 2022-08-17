@@ -10,25 +10,25 @@ const haveHashtag = async(queryString)=>{
 const newHashtag = async (queryString)=>{
 
     return db.query(
-        `INSERT INTO hashtags (name, mentions, view_count, created_at) VALUES ($1, $2, $3, $4)`, queryString
+        `INSERT INTO hashtags (name, mentions, view_count) VALUES ($1, $2, $3)`, queryString
     )
 }
 
 const updateMentions = async(queryString) => {
-    return connection.query(`
-        UPDATE hashtags SET mentions= mentions + $1 WHERE id=$2`, queryString
+    return db.query(`
+        UPDATE hashtags SET mentions = mentions + 1 WHERE id=$1`, queryString
     )
 }
 
 const postPublish = async(queryString) => {
-    return connection.query(`
-        INSERT INTO posts (author_id, description, url, created_at) VALUES ($1, $2, $3, $4) RETURNING id`, queryString
+    return db.query(`
+        INSERT INTO posts (author_id, description, url) VALUES ($1, $2, $3) RETURNING id`, queryString
     )
 }
 
 const hashtagsPosts = async(queryString) => {
-    return connection.query(`
-        INSERT INTO hashtags_posts (hashtag_id, post_id) VALUES ($1, $2)`, queryString
+    return db.query(`
+        INSERT INTO hashtags_posts (hashtag_name, post_id) VALUES ($1, $2)`, queryString
     )
 }
 

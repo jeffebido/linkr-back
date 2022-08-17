@@ -1,7 +1,6 @@
 import {postsRepository} from "../repositories/postsRepository.js";
 import urlMetadata from "url-metadata";
 
-
 async function getUrlData(link){//Pega informações de uma url
 
     let data = {};
@@ -21,10 +20,11 @@ async function getPostsWithUrlData(posts){//Adiciona informações da URl ao arr
     let postsData = [];
 
     for await (let post of posts){
+        console.log(post.url);
         let UrlData = await getUrlData(post.url);
         postsData.push({...post, ...UrlData });
     }
-    
+
     return postsData;
 }
 
@@ -41,10 +41,8 @@ export async function getTimelinePosts(req, res) {
             return res.status(200).send(postData);
         }
         
-        
-
-        
     } catch (err) {
+        console.log(err)
         return res.sendStatus(400);
     }
 }
