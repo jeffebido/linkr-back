@@ -13,11 +13,12 @@ const haveHashtag = async (req, res, next) => {
     try{
 
 
-        const allHashtags = description.match(/#[a-z0-9_]+/gi);
+        let allHashtags = description.match(/#[a-z0-9_]+/gi);
 
         if(allHashtags && allHashtags.length > 0){
             
             for(let i = 0; i < allHashtags.length; i++){
+                allHashtags[i] = allHashtags[i].replace('#','');
                 const hashtag = allHashtags[i];
                 const hashtagDb = await publishQuerys.haveHashtag([hashtag]);
                 if(hashtagDb.rows.length === 0){
