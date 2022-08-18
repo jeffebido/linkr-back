@@ -20,10 +20,10 @@ export async function likePost(req, res){
   
   
   export async function deslikePost(req, res){
-    const postId = req.params.postId;
-    const userId = req.params.userId;
+    let {post_id} = req.body;
+    let userId = '2';
     try{
-        favoriteRepository.removeFavorite(postId, userId);
+        favoriteRepository.removeFavorite(post_id, userId);
       return res.sendStatus(200);
   
     }catch(e){

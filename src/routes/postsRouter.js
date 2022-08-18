@@ -13,6 +13,6 @@ router.post("/publish",  tokenMiddleware, haveHashtag,  publishPost);
 
 
 router.post("/posts/favorite", tokenMiddleware , likePost);
-router.delete("/posts/favorite/:postId/:userId", tokenMiddleware , deslikePost);
+router.delete("/posts/delfavorite" , deslikePost);
 
 export default router;
