@@ -7,7 +7,7 @@ async function createUser(username, email, password, pictureUrl) {
 
   await db.query(
     `INSERT INTO users (username, email, password, picture_url) VALUES ($1, $2, $3, $4)`,
-    [username, email, passwordEncrypted,pictureUrl ]
+    [username, email, passwordEncrypted, pictureUrl]
   );
 }
 
