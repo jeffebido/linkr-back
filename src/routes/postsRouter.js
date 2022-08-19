@@ -7,10 +7,8 @@ import { haveHashtag } from '../middlewares/timelinerMiddleware.js';
 
 const router = Router();
 
-
-router.get("/timeline",  tokenMiddleware, getTimelinePosts);
-router.post("/publish",  tokenMiddleware, haveHashtag,  publishPost);
-
+router.get("/timeline", tokenMiddleware, getTimelinePosts);
+router.post("/publish", tokenMiddleware, haveHashtag, publishPost);
 
 router.post("/posts/favorite", tokenMiddleware , likePost);
 router.delete("/posts/delfavorite" , deslikePost);

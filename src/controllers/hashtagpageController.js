@@ -3,7 +3,7 @@ import db from "../db/database.js";
 import {postsRepository} from "../repositories/postsRepository.js";
 //import urlMetadata from "url-metadata";
 
-export async function getHashtagpage(req, res){
+export async function getHashtagpage(req, res) {
 
     const {hashtag} = req.params;
 
@@ -33,4 +33,6 @@ export async function getHashtagpage(req, res){
         return res.status(500).send(error);
       }
 
-}
+    return res.status(200).send(usersRank.rows);
+  }
+

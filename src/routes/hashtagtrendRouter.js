@@ -6,6 +6,6 @@ import { getHashtagpage } from "../controllers/hashtagpageController.js";
 const hashtagtrendRouter = Router();
 
 hashtagtrendRouter.get("/trending", getTrendhashtag); //rota para o elemento trending - falta token pois é autenticada
-hashtagtrendRouter.get("/hashtag/:hashtag", getHashtagpage)
+hashtagtrendRouter.get("/hashtag/:hashtag", getHashtagpage);
 
 export default hashtagtrendRouter;
