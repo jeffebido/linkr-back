@@ -40,7 +40,7 @@ export async function signUp(req, res) {
     const { username, email, password, pictureUrl} = user;
     await usersRepository.createUser(username, email, password, pictureUrl);
 
-    res.send(201);
+    res.sendStatus(201);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
